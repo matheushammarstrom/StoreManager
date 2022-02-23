@@ -7,7 +7,7 @@ const products = require('../../../models/products');
 describe('Model Tests: ', ()=>{
 
   const executeResponse = [[{id: 1, name: 'Martelo de Thor', quantity: 10}, {id:2, name:'Escudo', quantity:100}]];
-  const modelSucessResponse = [{id: 1, name: 'Martelo de Thor', quantity: 10}, {id:2, name:'Escudo', quantity:100}]
+  const modelSucessResponse = [{id: 1, name: 'Martelo de Thor', quantity: 10}, {id:2, name:'Escudo', quantity:100}];
   describe('List all products',()=>{
     before(() => {
       sinon.stub(DB, 'execute').resolves(executeResponse);
