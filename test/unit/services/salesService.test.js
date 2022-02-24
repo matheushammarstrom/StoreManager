@@ -6,8 +6,8 @@ const salesModel = require('../../../models/sales');
 
 describe('Services Tests: ',()=>{
   describe('List all sales',()=>{
-    const modelResponse = [{id: 1, date: '2021-09-09  00:45:32'}, {id:2, date: '2021-09-09  00:45:36'}];
-    const serviceSuccessResponse = {code: 200, data: modelResponse};
+    const modelResponse = [{ date: '2021-09-09  00:45:32', product_id: 2, quantity: 3, sale_id: 4}];
+    const serviceSuccessResponse = {code: 200, data: [{date: '2021-09-09  00:45:32', productId: 2, quantity: 3, saleId: 4}]};
     describe('List all sales',()=> {
       before(() => {
         sinon.stub(salesModel, 'getAll').resolves(modelResponse);
