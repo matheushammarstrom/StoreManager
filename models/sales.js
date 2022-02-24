@@ -11,7 +11,10 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const query = 'SELECT * FROM StoreManager.sales WHERE id = ? ORDER BY id';
+  const query = `SELECT product_id, date, sale_id, quantity FROM StoreManager.sales as s
+  JOIN StoreManager.sales_products as sp
+  ON s.id =  sp.sale_id
+  WHERE sp.sale_id = ?`;
   const [result] = await DB.execute(query, [id]);
   return result;
 };
