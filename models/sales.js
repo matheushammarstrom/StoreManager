@@ -10,6 +10,12 @@ const getAll = async () => {
   return result;
 };
 
+const getById = async (id) => {
+  const query = 'SELECT * FROM StoreManager.sales WHERE id = ? ORDER BY id';
+  const [result] = await DB.execute(query, [id]);
+  return result;
+};
 module.exports = {
   getAll,
+  getById,
 };
