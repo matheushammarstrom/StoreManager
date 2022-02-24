@@ -27,7 +27,7 @@ describe('Services Tests: ',()=>{
   describe('List product by id',()=>{
     describe('If the product is found',()=>{
       const modelResponse =[{id: 1, name: 'Martelo de Thor', quantity: 10}];
-      const serviceSuccessResponse = {code: 200, data: modelResponse};
+      const serviceSuccessResponse = {code: 200, data: {id: 1, name: 'Martelo de Thor', quantity: 10}};
       before(() => {
         sinon.stub(productsModel, 'getById').resolves(modelResponse);
       })

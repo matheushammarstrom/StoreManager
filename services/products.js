@@ -6,8 +6,8 @@ const getAll = async () => {
 };
 
 const getById = async () => {
-  const data = await productsModel.getById();
-  if (data.length === 0) return { code: 404, message: 'Product not found' };
+  const [data] = await productsModel.getById();
+  if (!data || data.length === 0) return { code: 404, message: 'Product not found' };
   return { code: 200, data };
 };
 

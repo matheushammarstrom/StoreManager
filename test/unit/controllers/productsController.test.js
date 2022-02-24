@@ -15,8 +15,8 @@ describe('Controller Tests: ',()=>{
   })
   describe('List all products',()=>{
 
-    const serviceResponse = {code: 200, data: [{id: 1, name: 'Martelo de Thor', quantity: 10}]};
-    describe('List all sales',()=> {
+    describe('List all products',()=> {
+      const serviceResponse = {code: 200, data: [{id: 1, name: 'Martelo de Thor', quantity: 10}]};
       before(()=>{
         sinon.stub(productsService, 'getAll').resolves(serviceResponse)
       })
@@ -24,7 +24,7 @@ describe('Controller Tests: ',()=>{
         productsService.getAll.restore();
       });
 
-      it('Calls response.status with "code" value from serviceResponse.', async ()=>{
+      it('Calls response.status with 200 value from serviceResponse.', async ()=>{
         await productsController.getAll(request, response, next)
         expect(response.status.calledWith(serviceResponse.code)).to.be.true;
       })
@@ -33,7 +33,46 @@ describe('Controller Tests: ',()=>{
         await productsController.getAll(request, response, next);
         expect(response.json.calledWith(serviceResponse.data)).to.be.true;
       })
+    })
+  })
+  describe('List product by id',()=>{
+    describe('If the product is found', ()=>{
+      const serviceResponse = {code: 200, data: {id: 1, name: 'Martelo de Thor', quantity: 10}}
+      request.params = { id: 1 }
+      before(()=>{
+        sinon.stub(productsService, 'getById').resolves(serviceResponse)
+      })
+      after(() => {
+        productsService.getById.restore();
+      });
+      it('Calls response.status with 200 value from serviceResponse.', async ()=>{
+        await productsController.getById(request, response, next);
+        expect(response.status.calledWith(serviceResponse.code)).to.be.true;
+      })
 
+      it('Calls response.json with data from serviceResponse.', async()=> {
+        await productsController.getById(request, response, next);
+        expect(response.json.calledWith(serviceResponse.data)).to.be.true;
+      })
+    })
+    describe('If the product is not found', ()=>{
+      const serviceResponse = { code: 404, message: 'Product not found'}
+      request.params = { id: 1 }
+      before(()=>{
+        sinon.stub(productsService, 'getById').resolves(serviceResponse)
+      })
+      after(() => {
+        productsService.getById.restore();
+      });
+      it('Calls response.status with 404 value from serviceResponse.', async ()=>{
+        await productsController.getById(request, response, next);
+        expect(response.status.calledWith(serviceResponse.code)).to.be.true;
+      })
+
+      it('Calls response.json with message from serviceResponse.', async()=> {
+        await productsController.getById(request, response, next);
+        expect(response.json.calledWith(serviceResponse.message)).to.be.true;
+      })
     })
   })
 })
