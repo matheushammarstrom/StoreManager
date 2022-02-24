@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use('/products', productsRouter);
 
-app.use('/products', salesRouter);
+app.use('/sales', salesRouter);
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.send();
