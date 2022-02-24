@@ -71,7 +71,7 @@ describe('Controller Tests: ',()=>{
 
       it('Calls response.json with message from serviceResponse.', async()=> {
         await productsController.getById(request, response, next);
-        expect(response.json.calledWith(serviceResponse.message)).to.be.true;
+        expect(response.json.calledWith({message: serviceResponse.message})).to.be.true;
       })
     })
   })
