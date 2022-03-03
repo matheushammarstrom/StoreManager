@@ -15,17 +15,17 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
   const { error } = productSchema.validate(req.body);
   if (error) {
-    console.log(error.message);
     const [code, message] = error.message.split('|');
     return res.status(code).json({ message });
   }
-  // chama service
+  const { code, data, message } = await productsService.create(req.body.name, req.body.quantity);
+  if (message) return res.status(code).json({ message });
+  return res.status(code).json(data);
 };
 
 const update = async (req, res) => {
   const { error } = productSchema.validate(req.body);
   if (error) {
-    console.log(error.message);
     const [code, message] = error.message.split('|');
     return res.status(code).json({ message });
   }

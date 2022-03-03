@@ -15,21 +15,20 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
   const { error } = saleSchema.validate(req.body);
   if (error) {
-    console.log(error.message);
     const [code, message] = error.message.split('|');
     return res.status(code).json({ message });
   }
   // chama service
 };
 
-const update = async (req, res) => {
+const update = async (req, res, next) => {
   const { error } = saleSchema.validate(req.body);
   if (error) {
-    console.log(error.message);
     const [code, message] = error.message.split('|');
     return res.status(code).json({ message });
   }
   // chama service
+  next();
 };
 
 module.exports = {
