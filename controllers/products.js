@@ -24,12 +24,16 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
+  const { id } = req.params;
+  const { name, quantity } = req.body;
   const { error } = productSchema.validate(req.body);
   if (error) {
     const [code, message] = error.message.split('|');
     return res.status(code).json({ message });
   }
-  // chama service
+  const { code, data, message } = await productsService.update(id, name, quantity);
+  if (message) return res.status(code).json({ message });
+  return res.status(code).json(data);
 };
 
 module.exports = {
