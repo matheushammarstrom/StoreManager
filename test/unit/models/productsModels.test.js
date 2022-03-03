@@ -36,4 +36,59 @@ describe('Model Tests: ', ()=>{
       expect(modelResponse).to.be.deep.equal(modelSucessResponse);
     })
   })
+  describe('Create new product', ()=>{
+    const executeResponse = [{insertId: 1}]
+    before(() => {
+      sinon.stub(DB, 'execute').resolves(executeResponse);
+    })
+
+    after(() => {
+      DB.execute.restore();
+    });
+    it('Deve retornar um objeto contendo a chave insertId',async ()=>{
+      const modelResponse = await products.create();
+      expect(modelResponse).to.have.property('insertId');
+    })
+  })
+  describe('Check if a product already exists', ()=>{
+    describe('If the product exists', () => { 
+      const executeResponse = [{name: 'car'},{}]
+      before(() => {
+        sinon.stub(DB, 'execute').resolves(executeResponse);
+      })
+      after(() => {
+        DB.execute.restore();
+      });
+        it('Should return an object with product info if exists', async ()=>{
+          const modelResponse = await products.getByName();
+          expect(modelResponse).to.have.property('name');
+      }) })
+    describe('If the product does not exist',()=>{
+      const executeResponse = [[],{}]
+      before(() => {
+        sinon.stub(DB, 'execute').resolves(executeResponse);
+      })
+      after(() => {
+        DB.execute.restore();
+      });
+        it('Should return an empty array if product does not exist', async ()=>{
+          const modelResponse = await products.getByName();
+          expect(modelResponse).to.be.deep.equal([]);
+      })
+    })
+  })
+  describe('Updates a product', ()=> {
+    const executeResponse = [{insertId: 1}]
+    before(() => {
+      sinon.stub(DB, 'execute').resolves(executeResponse);
+    })
+
+    after(() => {
+      DB.execute.restore();
+    });
+    it('Should return an object containing insertId',async ()=>{
+      const modelResponse = await products.update();
+      expect(modelResponse).to.have.property('insertId');
+    })
+  })
 })
