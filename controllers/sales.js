@@ -18,7 +18,8 @@ const create = async (req, res) => {
     const [code, message] = error.message.split('|');
     return res.status(code).json({ message });
   }
-  // chama service
+  const { code, data } = await salesService.create(req.body);
+  return res.status(code).json(data);
 };
 
 const update = async (req, res, next) => {

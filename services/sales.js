@@ -22,7 +22,24 @@ const getById = async (id) => {
   return { code: 200, data };
 };
 
+const create = async (data) => {
+  const arraySales = [];
+  const { insertId } = await salesModel.createSales();
+  data.forEach(async (sale) => {
+    const salePromise = salesModel.createSalesProducts(insertId, sale.productId, sale.quantity);
+    arraySales.push(salePromise);
+  });
+  Promise.all(arraySales);
+  return { 
+    code: 201,
+    data: {
+    id: 1, 
+    itemsSold: data,
+  } };
+};
+
 module.exports = {
   getAll,
   getById,
+  create,
 };
