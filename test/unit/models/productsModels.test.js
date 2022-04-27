@@ -16,7 +16,7 @@ describe('Model Tests: ', ()=>{
       DB.execute.restore();
     });
 
-    it('Retorna um array com todos os produtos',async ()=>{
+    it('Should return an array of prodcts',async ()=>{
       const modelResponse = await products.getAll();
       expect(modelResponse).to.be.deep.equal(modelSucessResponse);
     })
@@ -31,7 +31,7 @@ describe('Model Tests: ', ()=>{
     after(() => {
       DB.execute.restore();
     });
-    it('Retorna um array com o produto buscado pelo id', async ()=>{
+    it('Should return an array containing the product found', async ()=>{
       const modelResponse = await products.getById();
       expect(modelResponse).to.be.deep.equal(modelSucessResponse);
     })
@@ -45,7 +45,7 @@ describe('Model Tests: ', ()=>{
     after(() => {
       DB.execute.restore();
     });
-    it('Deve retornar um objeto contendo a chave insertId',async ()=>{
+    it('Should return an object containing the key insertId',async ()=>{
       const modelResponse = await products.create();
       expect(modelResponse).to.have.property('insertId');
     })

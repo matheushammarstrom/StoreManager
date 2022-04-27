@@ -17,7 +17,7 @@ describe('Services Tests: ',()=>{
       after(() => {
         productsModel.getAll.restore();
       });
-      it('Retorna um objeto contendo o code 200 e as informacoes de todos os produtos em um array.',async ()=>{
+      it('Should return an object that has the property code and its equal to 200 and the property data that cointains all the products info',async ()=>{
         const serviceResponse = await productsService.getAll();
         expect(serviceResponse).to.be.deep.equal(serviceSuccessResponse);
       })
@@ -35,7 +35,7 @@ describe('Services Tests: ',()=>{
       after(() => {
         productsModel.getById.restore();
       });
-      it('Retorna um objeto contendo o code 200 e as informacoes do produto em um array', async ()=>{
+      it('Should return an object that has the property code and its equal to 200 and the property data that cointains all the product info', async ()=>{
         const serviceResponses = await productsService.getById();
         expect(serviceResponses).to.be.deep.equal(serviceSuccessResponse);
       })
@@ -51,7 +51,7 @@ describe('Services Tests: ',()=>{
       after(() => {
         productsModel.getById.restore();
       });
-      it('Retorna um objeto contendo o code 404 e as mensagem de erro', async ()=>{
+      it('Should return an object that has the property code and its equal to 404 and the property message containing the error message', async ()=>{
         const serviceResponses = await productsService.getById();
         expect(serviceResponses).to.be.deep.equal(serviceResponse);
       })

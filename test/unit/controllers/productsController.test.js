@@ -79,14 +79,14 @@ describe('Controller Tests: ',()=>{
   })
   describe('Create new product',()=>{
     describe('If the product format is invalid',()=>{
-      it('Quando "name" não é enviado', async () =>{
+      it('When "name" is not specified', async () =>{
         request.body = { quantity: 700 };
         await productsController.create(request, response, next)
 
         expect(response.status.calledWith('400')).to.be.true;
         expect(response.json.calledWith({message: '"name" is required'})).to.be.true;
       })
-      it('Quando "quantity" não é enviado', async () =>{
+      it('When "quantity" is not specified', async () =>{
         request.body = { name: 'car thor' };
         await productsController.create(request, response, next)
         expect(response.status.calledWith('400')).to.be.true;
@@ -139,14 +139,14 @@ describe('Controller Tests: ',()=>{
   })
   describe('Update a product', ()=>{
     describe('If the product info is invalid',()=>{
-      it('Quando "name" não é enviado', async () =>{
+      it('When "name" is not specified', async () =>{
         request.body = { quantity: 700 };
         await productsController.update(request, response, next)
 
         expect(response.status.calledWith('400')).to.be.true;
         expect(response.json.calledWith({message: '"name" is required'})).to.be.true;
       })
-      it('Quando "quantity" não é enviado', async () =>{
+      it('When "quantity" is not specified', async () =>{
         request.body = { name: 'car thor' };
         await productsController.update(request, response, next)
         expect(response.status.calledWith('400')).to.be.true;
